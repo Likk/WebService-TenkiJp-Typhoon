@@ -1,0 +1,28 @@
+This is Perl module WebService::TenkiJp::Typhoon.
+
+INSTALLATION
+
+WebService::TenkiJp::Typhoon installation is straightforward. If your git is set up,
+you should just be able to do
+
+    % git clone git://github.com/Likk/WebService-TenkiJp-Typhoon.git
+    % cd WebService-TenkiJp-Typhoon
+
+Download it, unpack it, then build it as per the usual:
+
+    % perl Makefile.PL
+    % make && make test
+
+Then install it:
+
+    % make install
+
+DOCUMENTATION
+
+WebService::TenkiJp::Typhoon documentation is available as in POD. So you can do:
+
+    % perldoc WebService::TenkiJp::Typhoon
+
+to read the documentation online with your favorite pager.
+
+Likkradyus
