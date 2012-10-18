@@ -46,7 +46,7 @@ sub new {
   my %args  = @_;
   my $agent = delete $args{'agent'} || q{Mozilla/5.0 (Windows NT 6.1; WOW64; rv:8.0) Gecko/20100101 Firefox/8.0};
   $args{'mech'}      = WWW::Mechanize->new( agent=> $args{'agent'} );
-  $args{'base_url'}  = 'http://tenki.jp';
+  $args{'base_url'}  = 'http://bousai.tenki.jp';
   my $self = bless {%args}, $class;
   return $self;
 }
@@ -54,9 +54,9 @@ sub new {
 sub get_info {
   my $self = shift;
   my $mech = $self->{mech};
-  my $res  = $mech->get("@{[$self->{base_url}]}/typhoon/");
+  my $res  = $mech->get("@{[$self->{base_url}]}/bousai/typhoon/");
   my $data = $self->_parse($res->decoded_content) || '';
-  $self->exist(1) if $data;
+  $self->exist(1) if scalar $data;
   $self->info($data);
   return $data;
 }
@@ -76,13 +76,8 @@ sub _parse {
   my $html = shift;
   my $scraper = scraper
   {
-    process '//div[@id="regionWarningBox"]',
-      'data' => scraper
-    {
-      process '//p[1]',
-        description => 'TEXT'
-    };
-    result 'data';
+    process '//div[@class="typhoon_entries_detail_generalcondition"]', 'description[]'  => 'TEXT';
+    result 'description';
   };
   return $scraper->scrape($html);
 }
