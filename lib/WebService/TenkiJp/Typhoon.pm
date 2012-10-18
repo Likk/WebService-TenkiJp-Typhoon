@@ -55,8 +55,8 @@ sub get_info {
   my $self = shift;
   my $mech = $self->{mech};
   my $res  = $mech->get("@{[$self->{base_url}]}/bousai/typhoon/");
-  my $data = $self->_parse($res->decoded_content) || '';
-  $self->exist(1) if scalar $data;
+  my $data = $self->_parse($res->decoded_content) || [];
+  $self->exist(1) if scalar @$data;
   $self->info($data);
   return $data;
 }
